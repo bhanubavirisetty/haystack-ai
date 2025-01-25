@@ -63,10 +63,11 @@ def get_result(query):
             "prompt_builder": {"query": query}
         }
     )
-
+    #answer = result["prompt_node"]["answers"]
+    #return answer[0] if answer else "I don't know"
     return results['llm']['replies'][0]  # Extract the answer from the response
 
 if __name__ == "__main__":
-    query = "What is RAG in AI?"
+    query = "What is rag token?"
     result = get_result(query)
     print("Answer:", result)
