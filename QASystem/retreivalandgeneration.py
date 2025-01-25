@@ -5,7 +5,6 @@ from haystack.components.builders import PromptBuilder
 from haystack.components.generators import HuggingFaceAPIGenerator
 #from haystack.components.generators.chat import OpenAIChatGenerator
 from haystack_integrations.components.retrievers.pinecone import PineconeEmbeddingRetriever
-from haystack.dataclasses import Document
 from QASystem.utils import pinecone_config  # Ensure this function correctly initializes Pinecone
 import os
 from dotenv import load_dotenv
@@ -53,9 +52,9 @@ def get_result(query):
     query_pipeline.add_component("llm", llm)
 
     # Connect pipeline components
-    query_pipeline.connect(text_embedder, retriever)
-    query_pipeline.connect(retriever, prompt_builder)
-    query_pipeline.connect(prompt_builder, llm)
+    query_pipeline.connect("text_embedder", "retriever")
+    query_pipeline.connect("retriever", "prompt_builder")
+    query_pipeline.connect("prompt_builder", "llm")
 
     # Run the query pipeline
     results = query_pipeline.run(
